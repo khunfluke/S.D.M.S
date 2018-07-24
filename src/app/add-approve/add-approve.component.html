@@ -1,0 +1,119 @@
+<app-card >
+    <h4 class="sub-title">{{word.requirement_information[lang] +' : '+requirement_data.program_name}}</h4>
+    <div class="row">
+      <label align="right" class="col-sm-3 col-form-label">{{word.program_name[lang]}} :</label>
+      <label align="left" class="col-sm-2 col-form-label">{{requirement_data.program_name}}</label>
+      <label align="right" class="col-sm-3 col-form-label">{{word.responsible_person_project[lang]}} :</label>
+      <label align="left" class="col-sm-3 col-form-label">{{requirement_data.first_name+' '+requirement_data.last_name}}</label>
+    </div>
+    <div class="row">
+        <label align="right" class="col-sm-3 col-form-label">{{word.requirement_no[lang]}} :</label>
+        <label align="left" class="col-sm-2 col-form-label">{{requirement_data.requirement_no}}</label>
+        <label align="right" class="col-sm-3 col-form-label">{{word.employee_code[lang]}} :</label>
+        <label align="left" class="col-sm-3 col-form-label">{{requirement_data.employee_code}}</label>
+    </div>
+    <div class="row">
+      <label align="right" class="col-sm-3 col-form-label">{{word.version[lang]}} :</label>
+      <label align="left" class="col-sm-2 col-form-label">{{requirement_data.version}}</label>
+      <label align="right" class="col-sm-3 col-form-label">{{word.division[lang]}} :</label>
+      <label align="left" class="col-sm-3 col-form-label">{{requirement_data.division_name}}</label>
+    </div>
+    <div class="row">
+      <label align="right" class="col-sm-3 col-form-label">{{word.date_of_notification[lang]}} :</label>
+      <label align="left" class="col-sm-2 col-form-label">{{requirement_data.date_of_notification | date:'dd-MM-yyyy':'+0900'}}</label>
+      <label align="right" class="col-sm-3 col-form-label">{{word.department[lang]}} :</label>
+      <label align="left" class="col-sm-3 col-form-label">{{requirement_data.department_name}}</label>
+    </div>
+    <div class="row">
+      <label align="right" class="col-sm-3 col-form-label">{{word.company_namecustomer[lang]}} :</label>
+      <label align="left" class="col-sm-2 col-form-label">{{requirement_data.company_name}}</label>
+      <label align="right" class="col-sm-3 col-form-label">{{word.program_support[lang]}} :</label>
+        <label align="left" class="col-sm-3 col-form-label">{{requirement_data.program_support}}</label>
+    </div>
+    <div class="row">
+      <label align="right" class="col-sm-3 col-form-label">{{word.customer_fname[lang]}} :</label>
+      <label align="left" class="col-sm-2 col-form-label">{{requirement_data.customer_name}}</label>
+        <label align="right" class="col-sm-3 col-form-label">{{word.document[lang]}} :</label>
+        <label align="left" class="col-sm-3 col-form-label" style="color:blue;"><a (click)="download(requirement_data.file)"><U>{{requirement_data.file}}</U></a></label>
+    </div>
+    <div class="row">
+        <label align="right" class="col-sm-3 col-form-label">{{word.phone_number[lang]}} :</label>
+        <label align="left" class="col-sm-2 col-form-label">{{requirement_data.c_phone_number}}</label>
+        <label align="right" class="col-sm-3 col-form-label">{{word.detail[lang]}} :</label>
+      <label align="left" class="col-sm-3 col-form-label">{{requirement_data.requirement}}</label>
+    </div>
+    <div class="row">
+        <label align="right" class="col-sm-3 col-form-label">{{word.want[lang]}} :</label>
+        <label align="left" class="col-sm-3 col-form-label">{{requirement_data.want}}</label>
+    </div>
+</app-card>
+
+<app-card >
+      <h4 class="sub-title">{{word.consideration[lang]}}</h4>
+      <!-- <div class="from-group row">
+        <label align="right" class="col-sm-2 col-form-label">{{word.requirement[lang]}} :</label>
+        <div class="col-sm-6">
+          <input type="text"  style="margin-bottom:15px;" [(ngModel)]="requirement" class="form-control" disabled>
+           <ng-select [(ngModel)]="requirement" style="margin-bottom:15px;" [ngClass]="'ng-select '" [options]="requirement_data" [multiple]="false"></ng-select> 
+        </div>
+      </div>  -->
+      <div class="form-group row">
+        <label align="right" class="col-sm-2 col-form-label">{{word.number_of_day[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+        <div class="col-sm-2">
+          <input [(ngModel)]="number_of_day" (keyup)="validate()" min="1" type="number"  class="form-control">
+        </div>
+        <label class="col-sm-1 col-form-label">{{word.date[lang]}}</label>
+        <label align="left" class="col-sm-5 col-form-label"><span style="color:red;">{{validate_num_of_day}}</span></label>
+
+      </div>
+      <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.estimated_cost[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-2">
+            <input [(ngModel)]="estimated_cost" (keyup)="validate()" min="0" type="number" class="form-control">
+            <!-- {{estimated_cost | number}} -->
+          </div>
+          <label class="col-sm-1 col-form-label">{{word.baht[lang]}}</label>
+          <label align="left" class="col-sm-5 col-form-label"><span style="color:red;">{{validate_estimated_cost}}</span></label>
+
+        </div>
+      <div style="margin-bottom:15px;" class="form-radio form-group row">
+          <div align="right" class="col-sm-2">{{word.consideration[lang]}} : <span style="color:red;font-weight: bold;"> * </span></div>
+        <div class="col-sm-10">
+            <div class="radio radio-inline">
+                <label>
+                  <input [(ngModel)]="approve" [value]="1" type="radio" name="radio" ><!-- checked="checked" -->
+                  <i class="helper"></i>{{word.approve[lang]}}
+                </label>
+              </div>
+              <div class="radio radio-inline">
+                <label>
+                  <input *ngIf="check_update == false || check_update_apprve == 0" [(ngModel)]="approve" [value]="0" type="radio" name="radio" >
+                  <input *ngIf="check_update == true && check_update_apprve == 1" [(ngModel)]="approve" [value]="0" type="radio" name="radio" disabled>
+                  <i class="helper"></i>{{word.not_approve[lang]}}
+                </label>
+              </div>
+        </div>
+      </div>
+      <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.approval_date[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-3">
+            <input [(ngModel)]="date_of_permit" style="width:160px;"  type="date"  class="form-control">
+          </div>
+        </div>
+      <div class="from-group row">
+        <label align="right" class="col-sm-2 col-form-label">{{word.detail[lang]}} :</label>
+        <div class="col-sm-8">
+            <textarea [(ngModel)]="detail" style="margin-bottom:15px;" rows="5" cols="5" class="form-control" placeholder=""></textarea>
+        </div>
+      </div>
+
+      <div from-group class="row">
+        <div class="col-sm-12" align="center">
+          <button *ngIf="check_update == false" (click)="add_approve()" class="btn btn-success" placement="bottom" >{{word.save[lang]}}</button>
+          <button *ngIf="check_update == true" (click)="update_approve()" class="btn btn-success" placement="bottom">{{word.edit[lang]}}</button>
+          <button *ngIf="check_update == false" routerLink="/approve/approve" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+          <button *ngIf="check_update == true" routerLink="/approve/approve-information" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+          </div>
+      </div> 
+      
+    </app-card>

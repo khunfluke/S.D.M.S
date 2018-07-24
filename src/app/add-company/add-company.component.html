@@ -1,0 +1,67 @@
+
+        <app-card >
+          <h4 *ngIf="check_update == false" class="sub-title">{{word.add_companycustomer[lang]}}</h4>
+          <h4 *ngIf="check_update == true" class="sub-title">{{word.edit_companycustomer[lang]}}</h4>
+          <div class="from-group row">
+              <label align="right" class="col-sm-3 col-form-label">{{word.company_namecustomer[lang]}} : <span style="color:red;font-weight: bold;"> * </span> </label>
+              <div class="col-sm-7">
+                <input [(ngModel)]="company_name" style="margin-bottom:15px;" type="text" class="form-control">
+              </div>
+           </div>
+           <div class="from-group row">
+              <label align="right" class="col-sm-3 col-form-label">{{word.address[lang]}} : <span style="color:red;font-weight: bold;"> * </span> </label>
+              <div class="col-sm-7">
+                  <textarea [(ngModel)]="address" style="margin-bottom:1px;" rows="5" cols="5" class="form-control" ></textarea>
+              </div>
+            </div> <br>
+            <div class="from-group row">
+                <label align="right" class="col-sm-3 col-form-label">{{word.customer_name1[lang]}} : <span style="color:red;font-weight: bold;"> * </span> </label>
+                <div class="col-sm-5">
+                  <input [(ngModel)]="customer_name" style="margin-bottom:15px;" type="text" class="form-control">
+                </div>
+             </div>
+            <div class="from-group row">
+                <label align="right" class="col-sm-3 col-form-label">{{word.email[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+                <div class="col-sm-5">
+                  <input [(ngModel)]="email" style="margin-bottom:15px;" type="text" class="form-control">
+                </div>
+             </div>
+             <div class="form-group row">
+                <label align="right" class="col-sm-3 col-form-label">{{word.phone_number[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+                <div class="col-sm-3">
+                  <input [(ngModel)]="phone_number" style="margin-bottom:15px;"  type="tel" class="form-control">
+                </div>
+              </div>
+               <div class="form-group row">
+                  <label align="right" class="col-sm-3 col-form-label">{{word.business_type[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+                  <div class="col-sm-4">
+                <ng-select style="margin-bottom:15px;"  [ngClass]="'ng-select'" [multiple]="false" [(ngModel)]="business_type_id" [options]="business_type_data">
+            </ng-select>
+                  </div>
+                  <div class="col-sm-2">
+                    <button (click)="openMyModal('effect-13')" class="btn btn-primary"><i _ngcontent-c11="" class="icofont icofont-plus m-r-5"></i> {{word.add_business_type[lang]}}</button>
+                  </div>
+              </div>
+              <br>
+          <div from-group class="row">
+            <div class="col-sm-12" align="center">
+                <button *ngIf="check_update == false" (click)="add_company($event)" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.save[lang]}}</button>
+                <button *ngIf="check_update == true" (click)="update_company()" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.edit[lang]}}</button>
+                <button routerLink="/basic-data/company" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+              </div>
+          </div>
+        </app-card>
+
+  <app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+    <h3 class="f-26">{{word.add_business_type[lang]}}</h3>
+    <div class="text-center">
+        <div class="input-group">
+            <label  class="col-sm-3 col-form-label">{{word.business_type[lang]}} :</label>
+            <input [(ngModel)]="business_type_id" type="hidden" class="form-control" >
+            <input [(ngModel)]="business_type" type="text" class="col-sm-8 form-control" >
+        </div> 
+            <button (click)="add_business_type($event)" type="button" class="btn btn-success waves-effect m-r-20 f-w-600 d-inline-block">{{word.save[lang]}}</button>
+            <button (click)="closeMyModal($event)" class="btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">{{word.cancel[lang]}}</button>
+    </div>
+    <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+  </app-modal-animation>

@@ -1,0 +1,75 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <h4>{{word.employee_list[lang]}}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <app-card>
+      <div class="row">
+        <div class="col-lg-3" align="left">
+            <input
+              type='text'
+              class="form-control input-sm m-l-10"
+              placeholder='{{word.serch_employee[lang]}}'
+              (keyup)='updateFilter($event)'
+            />
+          </div>
+      <div class="col-lg-9" align="right">
+        <button routerLink="/basic-data/add-staff" class="btn btn-primary"><i _ngcontent-c11="" class="icofont icofont-plus m-r-5"></i> {{word.add_employeedata[lang]}}</button>
+      </div>
+    </div><br>
+      <ngx-datatable
+      class='data-table scroll'
+      [rows]='set_row'
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [rowHeight]="55"
+      [scrollbarV]="true"
+      [selected]="selected"
+      [selectionType]="'single'"
+      (activate)="onActivate($event)"
+      (select)='onSelect($event)'
+      (page)="onPage($event)">
+      <ngx-datatable-column [maxWidth]=100 headerClass="head_center" cellClass="head_center" name="{{word.no[lang]}}" prop="index" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row['index']}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column headerClass="head_center" name="{{word.employee_code[lang]}}" prop="employee_code" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row['employee_code']}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column headerClass="head_center" name="{{word.fname[lang]}}-{{word.lname[lang]}}" prop="first_name" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row['first_name'] + " " + row['last_name']}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column headerClass="head_center" name="{{word.position[lang]}}" prop="position_name" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row['position_name']}}
+        </ng-template>
+      </ngx-datatable-column> 
+      <ngx-datatable-column headerClass="head_center" name="{{word.department[lang]}}" prop="department_name" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row['department_name']}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column headerClass="head_center" name="{{word.division[lang]}}" prop="division_name" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row['division_name']}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column headerClass="head_center" cellClass="head_center" [minWidth]=200 name="{{word.manage[lang]}}" >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <button (click)="update_staff(row['employee_id'])" style="color:aliceblue;" class="btn btn-warning" placement="bottom" popovertitle="Warning color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Warning color states" ng-reflect-placement="bottom">
+                  <i class="fa fa-edit"></i>{{word.edit[lang]}}</button>
+              <button (click)="delete_staff(row['employee_id'])" style="color:aliceblue;" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">
+                  <i class="fa fa-trash"></i>{{word.delete[lang]}}</button>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable> 
+    </app-card>
+  </div>
+</div>

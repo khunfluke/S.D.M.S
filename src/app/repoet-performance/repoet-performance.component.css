@@ -1,0 +1,9 @@
+.fix-hight{
+    max-height: 100%;
+}
+
+a:hover { 
+    cursor: pointer;
+    color: red !important; 
+}
+

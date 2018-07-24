@@ -1,0 +1,81 @@
+useradd -d /home/57160501/ -m -s /bin/bash //สร้าง user
+groupadd team05 //สร้างกลุ่ม
+su - 57160501 //เปลี่ยนจาก root เป็น 57160501
+whoami //เช็คตัวเอง ตอนนี้เป็นใคร
+usermod 57160501 -g team05 //ย้าย user เข้าไปในกลุ่ม
+aptitude install sudo //ติดตั้ง sudo
+/etc/sudoers // ทำ user ให้เป็น sudo
+usermod -aG sudo //ทำ user ให้เป็น sudo
+apt upgrade ชื่อต้องการอัพเกรด // อัปเกรดเฉพาะ
+apt update // อัพเดรด
+apt list --upgradeble//ดูรายการที่ต้อง อัพเกรด
+ifconfig //
+service apache2 status //ดูสเตตัส ของ apache2
+systemctl status apache2 //ดูสเตตัส apache2
+apt install apache2 // ติดตั้ง apache2 (ถ้าติดตั้งเสร็จจะ start อัตโนมัติเลย)
+systemctl stop apache2 //หยุด apache2
+systrmctl start apache2 //สั่ง apache2 เริ่มทำงาน
+apt install nginx //ติดตั้ง nginx 
+mv ชื่อเก่า ชื่อใหม่ // เปลี่ยนชื่อไฟล์
+apt remove nginx  // ถอนการติดตั้ง nginx 
+apt install msql-server //ติดตั้ง msql-server
+date // ดูวัน/เวลา
+apt -y install  php5 libapache2-mod-php5 //ติดตั้ง php5
+systemctl proweroff //ปิดเครื่อง
+reboot // restart เครื่อง
+chmod -R 777 var/www/store ==> กำหนดสิทธิ์
+
+------------------------------------------------------------------------------------
+wget http://bls.buu.ac.th/~888353/07Feb07-Feb08/888353.tar.gz
+tar xvzf 888353.tar.gz
+cd buu-debian-netinstall-source
+ จะมี 3 ไฟล์
+      libb.__
+      lynx-cur_7.0
+
+apt install lynx // ยังสั่ง apt
+dpkg -i libb...  ------> install libb ลงไป
+dpkg -i lynx ------> install lynx ลงไป
+/etc/apt/sourcs.list
+sourcs.list /etc/apt/source.list
+#lynx 
+      ทำการ authen
+#ap update
+      systemd poweroff
+-------------------------- /etc/apt/sourcs.list ------------------------------
+https://www.it-clever.com/how-to-%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87-static-ip-%E0%B9%83%E0%B8%99-ubuntu/
+# 
+# deb cdrom:[Debian GNU/Linux 8.7.1 _Jessie_ - Official amd64 NETINST Binary-1 20170116-10:57]/ jessie main
+# deb cdrom:[Debian GNU/Linux 8.7.1 _Jessie_ - Official amd64 NETINST Binary-1 20170116-10:57]/ jessie main
+deb http://mirror.kku.ac.th/debian/ jessie main
+deb-src http://mirror.kku.ac.th/debian/ jessie main
+
+# Line commented out by installer because it failed to verify:
+deb http://security.debian.org/ jessie/updates main
+------------------------ เปลี่ยน ip ------------------------------------
+/etc/network/interfaces 
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+source /etc/network/interfaces.d/*
+# The loopback network interface
+auto lo
+iface lo inet loopback
+# The primary network interface
+allow-hotplug eth0
+# iface eth0 inet dhcp
+iface eth0 inet static
+address 10.16.77.XX (เมื่อ XX = IP ของทีม)
+netmask 255.255.255.0
+
+network 10.16.77.0
+broadcast 10.16.77.255
+gateway 10.16.77.1
+# Line commented out by installer because it failed to verify:
+deb-src http://security.debian.org/ jessie/updates main
+
+deb http://mirror.kku.ac.th/debian/ jessie-updates main
+deb-src http://mirror.kku.ac.th/debian/ jessie-updates main
+
+
+
+

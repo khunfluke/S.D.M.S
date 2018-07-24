@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-lg-12">
+
+      <app-card >
+        <h4 class="sub-title">{{word.open_task_information[lang]}}</h4>
+        <div class="from-group row">
+            <label align="right" class="col-sm-3 col-form-label">{{word.approved_requirement[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+            <div class="col-sm-6">
+                <input [(ngModel)]="program_name" style="width:160px;" style="margin-bottom:15px;" type="text" class="form-control" disabled>
+            </div>
+          </div> 
+          <div class="from-group row">
+              <label align="right" class="col-sm-3 col-form-label">{{word.status[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-3">
+                  <input [(ngModel)]="status_name" style="width:160px;" style="margin-bottom:15px;" type="text" class="form-control" disabled>
+              </div>
+            </div> 
+          <div class="form-group row">
+              <label align="right" class="col-sm-3 col-form-label">{{word.date_of_import_development[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-2">
+                <input [(ngModel)]="import_date" style="width:160px;" type="date" class="form-control">
+              </div>
+          </div>
+          <div class="form-group row">
+              <label align="right" class="col-sm-3 col-form-label">{{word.expect_start_date[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-2">
+                <input [(ngModel)]="expect_start_date" style="width:160px;" type="date" class="form-control">
+              </div>
+          </div>
+          <div class="form-group row">
+              <label align="right" class="col-sm-3 col-form-label">{{word.expect_end_date[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-2">
+                <input [(ngModel)]="expect_end_date" style="width:160px;" min="{{expect_start_date}}" type="date" class="form-control">
+              </div>
+          </div>
+          <div class="form-group row">
+              <label align="right" class="col-sm-3 col-form-label">{{word.deadline[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-3">
+                <input [(ngModel)]="deadline" style="width:160px;" min="{{expect_start_date}}"  type="date" class="form-control">
+              </div>
+          </div>
+          <div *ngFor="let row of sub_task;index as i;" class="form-group row">
+              <label align="right" class="col-sm-3 col-form-label">{{word.sub_task[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-4">
+                <input [(ngModel)]="sub_task[i].sub_task_name" type="text" class="form-control">
+              </div>
+              <div class="col-sm-2">
+                <select [(ngModel)]="sub_task[i].difficulty_level" class="form-control" selected >
+                  <option value="ง่าย" selected="ง่าย">{{word.easy[lang]}}</option>
+                  <option value="ปานกลาง" >{{word.medial[lang]}}</option>
+                  <option value="ยาก" >{{word.hard[lang]}}</option>
+                </select>
+              </div>
+              <div class="col-sm-3">
+                  <button (click)="add_sub_task()" class="btn btn-primary"><i style="margin:auto;" class="fa fa-plus"></i></button>
+                  <button (click)="del_sub_task(i)" class="btn btn-danger"><i style="margin:auto;" class="fa fa-minus"></i></button>
+                </div>
+          </div>
+          <div class="from-group row">
+            <label align="right" class="col-sm-3 col-form-label">{{word.primary_responsibility[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+            <div class="col-sm-4">
+                <input [(ngModel)]="primary_responsibility"  style="width:160px;margin-bottom:15px;"  type="text" class="form-control" disabled>
+            </div>
+          </div> 
+          <div class="from-group row">
+              <label align="right" class="col-sm-3 col-form-label">{{word.priority[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-4">
+                  <select [(ngModel)]="priorities" style="margin-bottom:15px;" class="form-control" >
+                      <option value="น้อย" selected>{{word.low[lang]}}</option>
+                      <option value="ปานกลาง" >{{word.medial[lang]}}</option>
+                      <option value="มาก" >{{word.high[lang]}}</option>
+                    </select>
+              </div>
+            </div> 
+            <div from-group class="row">
+                <div class="col-sm-12" align="center">
+                  <button *ngIf="check_update == false" (click)="add_task()" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.save[lang]}}</button>
+                  <button *ngIf="check_update == true && (status == 1 || status == 7)" (click)="update_task()" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.edit[lang]}}</button>
+                  <button *ngIf="action == 'open' || action == 'reject'" routerLink="/import-development/open-task" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+                  <button *ngIf="action == 'update'" routerLink="/import-development/task-management" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+                </div>
+              </div> 
+      </app-card>
+
+  </div>
+</div>

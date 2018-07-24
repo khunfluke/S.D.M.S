@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-lg-12">
+    <app-card >
+
+      <h4 class="sub-title">{{word.planning_information[lang]}}</h4>
+      <div class="form-group row">
+        <label align="right" class="col-sm-2 col-form-label">{{word.task[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+        <div class="col-sm-8">
+          <ng-select *ngIf="check_update == false" [(ngModel)]="task_id" (ngModelChange)="show_sub_task($event)" style="margin-bottom:15px;" [ngClass]="'ng-select '" [options]="task_data" [multiple]="false">
+          </ng-select>
+          <input *ngIf="check_update == true" [(ngModel)]="program_name" type="text" class="form-control" disabled>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label align="right" class="col-sm-2 col-form-label">{{word.expect_start_date[lang]}} : </label>
+        <div class="col-sm-2">
+          <input type="date" [(ngModel)]="expect_start_date" class="form-control" style="width: 160px;" disabled>
+        </div>
+        <label align="right" class="col-sm-2 col-form-label">{{word.expect_end_date[lang]}} : </label>
+        <div class="col-sm-2">
+          <input type="date" [(ngModel)]="expect_end_date" class="form-control" style="width: 160px;" disabled>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group row">
+          <label class="col-sm-3 col-form-label">{{word.sub_task[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <label class="col-sm-2 col-form-label">{{word.previous_work[lang]}} :</label>
+          <label class="col-sm-2 col-form-label">{{word.responsible_person[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <label class="col-sm-2 col-form-label">{{word.expect_start_date[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <label class="col-sm-2 col-form-label">{{word.expect_end_date[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <!-- <label class="col-sm-2 col-form-label">{{word.cost[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label> -->
+      </div>
+      <div *ngFor="let item of sub_task_data; let i = index" class="form-group row">
+        <div class="col-sm-3">
+          <input value="{{item.sub_task_name}}"  class="form-control" type="text" disabled/>
+        </div>
+        <div class="col-sm-2">
+            <ng-select [(ngModel)]="sub_task_data[i].previous_task" style="margin-bottom:15px;" [ngClass]="'ng-select '" [options]="sub_task_datas" [multiple]="false"></ng-select>
+        </div>
+        <div class="col-sm-2">
+          <ng-select [(ngModel)]="sub_task_data[i].operator" style="margin-bottom:15px;" [ngClass]="'ng-select '" [options]="employee_data" [multiple]="false"></ng-select>
+        </div>
+        <div class="col-sm-2">
+          <input (ngModelChange)="change_expect_start_date(i)" [(ngModel)]="sub_task_data[i].expect_start_date" min="{{expect_start_date}}" max="{{expect_end_date}}" style="width: 160px;" class="form-control" type="date" />
+        </div>
+        <div class="col-sm-2">
+          <input *ngIf="check_change_expect_start_date[i] == true && sub_task_data[i].expect_start_date != undefined && sub_task_data[i].expect_start_date != '' " [(ngModel)]="sub_task_data[i].expect_end_date" min="{{sub_task_data[i].expect_start_date}}" max="{{expect_end_date}}" style="width: 160px;" class="form-control" type="date" />
+          <input *ngIf="check_change_expect_start_date[i] != true || sub_task_data[i].expect_start_date == undefined || sub_task_data[i].expect_start_date == '' " [(ngModel)]="sub_task_data[i].expect_end_date" min="{{sub_task_data[i].expect_start_date}}" max="{{expect_end_date}}" style="width: 160px;" class="form-control" type="date" disabled>
+        </div>
+        <!-- <div class="col-sm-2">
+          <input [(ngModel)]="sub_task_data[i].expect_end_date" class="form-control" type="number" />
+        </div> -->
+      </div>
+      <hr>
+      <div from-group class="row">
+          <div class="col-sm-12" align="center">
+            <button (click)="add_plan()" *ngIf="check_update == false" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.save[lang]}}</button>
+            <button (click)="add_plan()" *ngIf="check_update == true" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.edit[lang]}}</button>  
+            <button routerLink="/plan/plan" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+          </div>
+        </div>
+    </app-card>
+  </div>
+</div>  

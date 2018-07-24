@@ -1,0 +1,71 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <h4>{{word.planned_task_list[lang]}}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+      <app-card>
+        <div class="row">
+          <div class="col-lg-3" align="left">
+                  <input
+                    type='text'
+                    class="form-control input-sm m-l-10"
+                    placeholder='{{word.search_task[lang]}}'
+                    (keyup)='updateFilter($event)'
+                  />
+          </div>
+          <div class="col-lg-9" align="right">
+            <button routerLink="/plan/add-plan" class="btn btn-primary"><i class="icofont icofont-plus m-r-5"></i> {{word.plan2[lang]}}</button>
+          </div>
+        </div><br>
+          <ngx-datatable
+            #table
+            class='data-table scroll'
+            [rows]='set_row'
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [rowHeight]="55"
+            [scrollbarV]="true"
+            [selected]="selected"
+            [selectionType]="'single'"
+            (activate)="onActivate($event)"
+            (select)='onSelect($event)'
+            (page)="onPage($event)">
+            <ngx-datatable-column  [maxWidth]=100 headerClass="head_center" cellClass="head_center" name="{{word.no[lang]}}" prop="index">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row['index']}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column  headerClass="head_center" name="{{word.task[lang]}}" prop="program_name">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <p [innerHTML]="row['program_name']"></p>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="head_center" name="{{word.expect_start_date[lang]}}" prop="expect_start_date">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row['expect_start_date']}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="head_center" name="{{word.expect_end_date[lang]}}" prop="expect_end_date">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row['expect_end_date']}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="head_center" cellClass="head_right" name="{{word.number_of_day[lang]}}" prop="num_of_date">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row['num_of_date'] }}
+                  </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column [minWidth]=200 headerClass="head_center" cellClass="head_center" name="{{word.manage[lang]}}" >
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button (click)="update_plan(row['task_id'])" style="color:aliceblue;" class="btn btn-warning" placement="bottom" popovertitle="Warning color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Warning color states" ng-reflect-placement="bottom">
+                        <i class="fa fa-edit"></i>{{word.edit[lang]}}</button>
+                    <button (click)="delete_plan(row['task_id'],row['requirement_id'])" style="color:aliceblue;" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">
+                        <i class="fa fa-trash"></i>{{word.delete[lang]}}</button>
+                  </ng-template>
+              </ngx-datatable-column>
+          </ngx-datatable>  
+      </app-card>
+  </div>
+</div>

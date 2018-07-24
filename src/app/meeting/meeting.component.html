@@ -1,0 +1,78 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <h4>{{word.meetingshow[lang]}}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <app-card>
+      <div class="row">
+        <div class="col-lg-3" align="left">
+            <input
+              type='text'
+              class="form-control input-sm m-l-10"
+              placeholder='{{word.serch_conference_topics[lang]}}'
+              (keyup)='updateFilter($event)'
+            />
+          </div>
+      <div class="col-lg-9" align="right">
+        <button routerLink="/add-meeting" class="btn btn-primary"><i class="icofont icofont-plus m-r-5"></i>{{word.add_meeting[lang]}}</button>
+      </div>
+      </div>
+      <br>
+      <ngx-datatable
+      class='data-table scroll'
+      [rows]='set_row'
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [rowHeight]="55"
+      [scrollbarV]="true"
+      [selected]="selected"
+      [selectionType]="'single'"
+      (activate)="onActivate($event)"
+      (select)='onSelect($event)'
+      (page)="onPage($event)">
+      <ngx-datatable-column [maxWidth]=100 name="{{word.no[lang]}}"  headerClass="head_center" prop="meeting_id" cellClass="head_center" >
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row['meeting_id']}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{word.conference_topics[lang]}}" headerClass="head_center" prop="conference_topics">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <p [innerHTML]="row['conference_topics']"></p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{word.meeting_date[lang]}}" headerClass="head_center" prop="meeting_date" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <!-- <p [innerHTML]="row['meeting_date']"> </p> -->
+          {{row['meeting_date'] | date:'dd-MM-yyyy '}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{word.time_meeting[lang]}}" headerClass="head_center" prop="label" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <p [innerHTML]="row['label']"   ></p>
+          <!-- {{row['start_time'] | number:'4.5-5' }} -->
+        </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="{{word.end_of_meeting[lang]}}" headerClass="head_center" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <p [innerHTML]="row['end_time']"></p>
+        </ng-template>
+      </ngx-datatable-column> -->
+      <ngx-datatable-column name="{{word.meeting_place[lang]}}" headerClass="head_center" prop="meeting_place" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <p [innerHTML]="row['place']"></p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [minWidth]=200 name="{{word.manage[lang]}}" headerClass="head_center" >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <button  (click)="update_meeting(row['meeting_id'])" style="color:aliceblue;" class="btn btn-warning" placement="bottom" popovertitle="Warning color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Warning color states" ng-reflect-placement="bottom">
+                  <i class="fa fa-edit"></i>{{word.edit[lang]}}</button>
+              <button  (click)="delete_meeting(row['meeting_id'],$event)" style="color:aliceblue;" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">
+                  <i class="fa fa-trash"></i>{{word.delete[lang]}}</button>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable> 
+    </app-card>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <h4>{{word.task_list_doing[lang]}}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+
+      <app-card>
+        <div align="right">
+          <button routerLink="/add-develop" class="btn btn-primary"><i class="icofont icofont-plus m-r-5"></i> {{word.add_develop[lang]}}</button>
+        </div><br>
+          <ngx-datatable
+            class='data-table scroll'
+            [rows]='set_row'
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [rowHeight]="55"
+            [scrollbarV]="true"
+            [selected]="selected"
+            [selectionType]="'single'"
+            (activate)="onActivate($event)"
+            (select)='onSelect($event)'
+            (page)="onPage($event)">
+            <ngx-datatable-column [maxWidth]=100 headerClass="head_center" cellClass="head_center" name="{{word.no[lang]}}" prop="index" >
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row['index']}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="head_center" name="{{word.task[lang]}}"  prop="program_name">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <p [innerHTML]="row['program_name']"></p>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="head_center" cellClass="head_right" name="{{word.complete[lang]}}" prop="progress">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row['progress']+' %'}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="head_center" name="{{word.primary_responsibility[lang]}}" prop="operator_name">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row['operator_name']}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="head_center" name="{{word.deadline[lang]}}" prop="operator_name">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row['deadline']}}
+                </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column [minWidth]=200 headerClass="head_center" cellClass="head_center" name="{{word.manage[lang]}}" >
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button (click)="edit_develop(row['task_id'])" style="color:aliceblue;" class="btn btn-warning" placement="bottom" popovertitle="Warning color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Warning color states" ng-reflect-placement="bottom">
+                        <i class="fa fa-edit"></i>{{word.edit[lang]}}</button>
+                    <button (click)="delete_develop(row['task_id'])" style="color:aliceblue;" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">
+                        <i class="fa fa-trash"></i>{{word.delete[lang]}}</button>
+                  </ng-template>
+              </ngx-datatable-column>
+          </ngx-datatable>  
+      </app-card>
+  </div>
+</div>

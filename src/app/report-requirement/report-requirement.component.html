@@ -1,0 +1,138 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <h4>{{word.report_requirement[lang]}}</h4>
+  </div>
+</div>
+<div class="row">
+<div class="col-lg-12">
+
+    <app-card>
+      <h4 class="sub-title">{{word.condition_searching[lang]}}</h4>
+      <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.duration[lang]}} : </label>
+          <div class="col-sm-2">
+            <input [(ngModel)]="start_date" type="date" style="width: 160px;" class="form-control">
+          </div>
+          <label align="center" class="col-sm-1 col-form-label">{{word.to[lang]}}</label>
+          <div class="col-sm-2">
+              <input [(ngModel)]="end_date" type="date" style="width: 160px;" class="form-control">
+          </div>
+          <div class="col-sm-2">
+            <button (click)="show_report_requirement()" class="btn btn-primary" placement="bottom"  type="button" ><i class="fa fa-search"></i> {{word.search[lang]}}</button>
+          </div>
+      </div>
+    </app-card>
+
+    <app-card *ngIf="check_show_report == true">
+      <div class="row">
+          <div class="col-lg-3" align="left">
+            <input
+              type='text'
+              class="form-control input-sm m-l-10"
+              placeholder='{{word.serch_company[lang]}}'
+              (keyup)='updateFilter($event)'
+             />
+          </div>
+        <div class="col-lg-9" align="right">
+          <button (click)="print()" class="btn btn-inverse"><i class="fa fa-print"></i> {{word.print[lang]}}</button>
+        </div>
+      </div><br>
+        <ngx-datatable
+          id='export'
+          class='data-table scroll'
+          [rows]='set_row'
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [rowHeight]="55"
+          [scrollbarV]="true"
+          [selected]="selected"
+          [selectionType]="'single'"
+          (activate)="onActivate($event)"
+          (select)='onSelect($event)'
+          (page)="onPage($event)">
+          <ngx-datatable-column [maxWidth]=120 headerClass="head_center" cellClass="head_center" name="{{word.no[lang]}}" prop="index" >
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row['index']}}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column headerClass="head_center" name="{{word.company[lang]}}" prop="company_name" >
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <a (click)="show_task_by_custormer_id(row['customer_id'],row['company_name']);modalDefault.show()"><U>{{row['company_name']}}</U></a>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column headerClass="head_center" cellClass="head_right" [maxWidth]=130 name="{{word.all_requirement[lang]}}" prop="all_re">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                 {{row['all_re']}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column headerClass="head_center" cellClass="head_right" [maxWidth]=150 name="{{word.proceed[lang]}}" prop="process">
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{row['process']}}
+              </ng-template>
+            </ngx-datatable-column>
+          <ngx-datatable-column headerClass="head_center" cellClass="head_right" [maxWidth]=130 name="{{word.finish[lang]}}" prop="finish">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                {{row['finish']}}
+            </ng-template>
+          </ngx-datatable-column>
+          
+        </ngx-datatable>  
+      
+    </app-card>
+  </div>
+</div>
+
+<!-- <button type="button" class="btn btn-default waves-effect" (click)="modalDefault.show()">Static</button> -->
+<app-modal-basic [hideHeader]=true hideFooter=true #modalDefault  [dialogClass]="'modal-lg'">
+  <div  class="app-modal-body">
+      <div class="row">
+        <div class="col-lg-9" align="left">
+          <h5>{{word.requirement_list_of[lang] +' : '+custormer_name}}</h5>
+        </div>
+        <div class="col-lg-3" align="right">
+          <input
+            type='text'
+            class="form-control"
+            placeholder='{{word.serch_requirement[lang]}}'
+            (keyup)='updateFilter2($event)'
+         />
+        </div>
+        </div><hr>
+      <ngx-datatable
+        class='data-table'
+        [rows]='set_row2'
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="55"
+        [limit]="6"
+        [selected]="selected2"
+        [selectionType]="'single'"
+        (activate)="onActivate2($event)"
+        (select)='onSelect2($event)'
+        (page)="onPage2($event)">
+        <ngx-datatable-column [maxWidth]=120 headerClass="head_center" cellClass="head_center" name="{{word.no[lang]}}" prop="index" >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row['index']}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column headerClass="head_center" name="{{word.requirement[lang]}}" prop="program_name" >
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row['program_name']}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column headerClass="head_center" cellClass="head_center" [maxWidth]=130 name="{{word.status[lang]}}" prop="test_result">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <i ngbTooltip="{{word.finish[lang]}}" style="color:green" *ngIf="row['status'] == 5" class="fa fa-check"></i>
+              <i ngbTooltip="{{word.proceed[lang]}}" style="color:blue" *ngIf="row['status'] != 5" class="fa fa-circle-o-notch"></i>
+             
+            </ng-template>
+          </ngx-datatable-column>
+        
+      </ngx-datatable>  
+    <hr>
+      <div class="col-lg-12" align="center">
+        <button  type="button" class="btn btn-danger" (click)="modalDefault.hide()">{{word.close[lang]}}</button>
+    </div>
+</div>
+</app-modal-basic>

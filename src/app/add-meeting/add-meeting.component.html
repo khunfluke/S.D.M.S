@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-lg-12">
+      <app-card >
+        <h4 *ngIf="check_update == false" class="sub-title">{{word.add_meeting[lang]}}</h4>
+        <h4 *ngIf="check_update == true" class="sub-title">{{word.edit_meeting[lang]}}</h4>
+        <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.conference_topics[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-8">
+            <input  [(ngModel)]="conference_topics" type="text" class="form-control" >
+          </div>
+        </div>
+        <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.episode[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-2">
+            <input [(ngModel)]="meeting_no" type="number" class="form-control" >
+          </div>
+        </div>
+        <div class="from-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.meeting_date[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-4">
+            <input [(ngModel)]="meeting_date" style="margin-bottom:15px;width:170px;" class="form-control" type="date" >
+          </div>
+        </div> 
+        <div class="form-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.start_time[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+            <div class="col-sm-1">
+              <input [(ngModel)]="start_time" style="margin-bottom:15px;width:70px;" type="text" class="form-control"  placeholder="__:__" mask="00:00" >
+            </div>
+          </div>
+          <div class="form-group row">
+              <label align="right" class="col-sm-2 col-form-label">{{word.end_of_meeting[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-1">
+                <input [(ngModel)]="end_time" style="margin-bottom:15px;width:70px;" type="text" class="form-control"  placeholder="__:__" mask="00:00">
+              </div>
+            </div> 
+        <div class="from-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.meeting_place[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+            <div class="col-sm-8">
+              <input [(ngModel)]="place" style="margin-bottom:15px;" class="form-control" type="text" >
+            </div>
+          </div>  
+          <div class="from-group row">
+              <label align="right" class="col-sm-2 col-form-label">{{word.meeting_details[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-8">
+                  <textarea [(ngModel)]="description" style="margin-bottom:15px;" rows="5" cols="5" class="form-control" ></textarea>
+              </div>
+            </div> 
+            <div  class="form-group row">
+                <label align="right" class="col-sm-2 col-form-label">{{word.recorder[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+                <div class="col-sm-3">
+                  <ng-select style="margin-bottom:15px;"  [ngClass]="'ng-select'" [multiple]="false"  [options]="staff_data"  [(ngModel)]="secretary">
+              </ng-select>
+                    </div>
+            </div> 
+            <div *ngFor="let item of attendees; index as i;" class="form-group row">
+              <label align="right" class="col-sm-2 col-form-label">{{word.attendees[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-3">
+                <ng-select  style="margin-bottom:15px;"  [ngClass]="'ng-select'" [multiple]="false"  [options]="staff_data" [(ngModel)]="employee_id[i]">
+            </ng-select>
+                  </div>
+              <div class="col-sm-3">
+                  <button (click)="add_attendees()" class="btn btn-primary"><i style="margin:auto;" class="fa fa-plus"></i></button>
+                  <button (click)="del_add_attendees(i)" class="btn btn-danger"><i style="margin:auto;" class="fa fa-minus"></i></button>
+                </div>
+          </div> 
+            <div class="from-group row">
+                 <label align="right" class="col-sm-2 col-form-label">{{word.document[lang]}} : </label>
+               <!-- <div class="col-sm-5">
+                  <input name="document" (change)="onFileChange($event)" class="form-control" type="file" />
+                </div> -->
+              <div class="col-sm-5">
+                <!-- <input (change)="onFileChange($event)" name="document" id="avatar" class="form-control" type="file" #fileInput> -->
+                <input (change)="onFileChange($event)" type="file" id="document" name="document"  class="form-control" /><!-- ng2FileSelect [uploader]="uploader" -->
+                <p style="color:blue;" *ngIf="check_update == true && old_file != ''">{{word.old_file[lang] +' : '+ old_file}}</p>
+              </div>
+              <div class="col-sm-2">
+                <button *ngIf="check_update == true && old_file != ''" type="button" class="btn btn-info" (click)="download()">
+                  <i class="fa fa-download"></i> {{word.download_the_old_file[lang]}}
+              </button>
+            </div> 
+          </div> 
+             <br>
+        <div from-group class="row">
+          <div class="col-sm-12" align="center">
+              <button *ngIf="check_update == false" (click)="add_meeting($event)" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.save[lang]}}</button>
+              <button *ngIf="check_update == true" (click)="update_meeting()" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.edit[lang]}}</button>
+              <button routerLink="/meeting" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+          </div>
+        </div>
+      </app-card>
+  </div>    
+</div>

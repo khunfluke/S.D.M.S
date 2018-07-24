@@ -1,0 +1,72 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <h4>{{word.company_list[lang]}}</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <app-card>
+        <div class="row">
+        <div class="col-lg-3" align="left">
+            <input
+              type='text'
+              class="form-control input-sm m-l-10"
+              placeholder='{{word.serch_company[lang]}}'
+              (keyup)='updateFilter($event)'
+            />
+          </div>
+        <div class="col-lg-9" align="right">
+            <button routerLink="/basic-data/add-company"  class="btn btn-primary"><i class="icofont icofont-plus m-r-5"></i>{{word.add_companycustomer[lang]}}</button>
+          </div>
+          </div>
+          <br>
+      <ngx-datatable
+      class='data-table scroll'
+      [rows]='set_row'
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [rowHeight]="55"
+      [scrollbarV]="true"
+      [selected]="selected"
+      [selectionType]="'single'"
+      (activate)="onActivate($event)"
+      (select)='onSelect($event)'
+      (page)="onPage($event)">
+      <ngx-datatable-column [maxWidth]=120 name="{{word.no[lang]}}" headerClass="head_center" cellClass="head_center" prop="index">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row['index']}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{word.company_namecustomer[lang]}}" headerClass="head_center" prop="company_name">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <p [innerHTML]="row['company_name']"></p>
+          </ng-template>
+        </ngx-datatable-column>
+      <ngx-datatable-column name="{{word.address[lang]}}" headerClass="head_center" prop="address">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <p [innerHTML]="row['address']"></p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{word.customer_name1[lang]}}" headerClass="head_center" prop="customer_name">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <p [innerHTML]="row['customer_name']"></p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="{{word.business_type[lang]}}" headerClass="head_center" prop="business_type_name">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <p [innerHTML]="row['business_type_name']"></p>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [minWidth]=200 name="{{word.manage[lang]}}" headerClass="head_center" >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <button (click)="update_company(row['customer_id'])" style="color:aliceblue;" class="btn btn-warning" placement="bottom" popovertitle="Warning color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Warning color states" ng-reflect-placement="bottom">
+                  <i class="fa fa-edit"></i>{{word.edit[lang]}}</button>
+              <button (click)="check_delete_company($event,row['customer_id'])" style="color:aliceblue;" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">
+                  <i class="fa fa-trash"></i>{{word.delete[lang]}}</button>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable> 
+    </app-card>
+  </div>
+</div>
+

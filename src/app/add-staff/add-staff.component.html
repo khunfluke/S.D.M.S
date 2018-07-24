@@ -1,0 +1,124 @@
+<div class="row">
+  <div class="col-lg-12">
+      <app-card >
+        <h4 *ngIf="check_update == false" class="sub-title">{{word.add_employeedata[lang]}}</h4>
+        <h4 *ngIf="check_update == true" class="sub-title">{{word.edit_employeedata[lang]}}</h4>
+        <div class="from-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.username[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-3">
+            <input [(ngModel)]="username" style="margin-bottom:15px;" type="text" class="form-control">
+          </div>
+       </div>
+       <div class="from-group row">
+        <label align="right" class="col-sm-2 col-form-label">{{word.password[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+        <div class="col-sm-3">
+          <input [(ngModel)]="password" style="margin-bottom:15px;" type="password" class="form-control">
+        </div>
+     </div>
+        <div class="from-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.fname[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-3">
+            <input [(ngModel)]="first_name" style="margin-bottom:15px;" type="text" class="form-control">
+          </div>
+       </div>
+       <div class="from-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.lname[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-3">
+            <input [(ngModel)]="last_name" style="margin-bottom:15px;" type="text" class="form-control">
+          </div>
+       </div>
+        <div class="from-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.employee_code[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+            <div class="col-sm-3">
+              <input [(ngModel)]="employee_code" style="margin-bottom:15px;" type="text" class="form-control">
+            </div>
+            <div class="col-sm-2"></div>
+         </div>
+         <div class="from-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.division[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-4">
+              <ng-select [options]="division_data" [(ngModel)]="division_id" (ngModelChange)="set_department_id($event)" style="margin-bottom:15px;" [ngClass]="'ng-select '" [multiple]="false"><!-- [allowClear]="true" -->
+              </ng-select>
+          </div>
+          <div class="col-sm-2">
+            <button (click)="openMyModal('effect-13')" class="btn btn-primary"><i class="icofont icofont-plus m-r-5"></i> {{word.add_division[lang]}}</button>
+          </div>
+        </div> 
+        <div class="from-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.department[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-4">
+              <ng-select style="color:black;" [(ngModel)]="department_id" style="margin-bottom:15px;" [ngClass]="'ng-select '" [options]="department_data" [multiple]="false" disabled></ng-select>
+          </div>
+        </div> 
+        <div class="from-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.position[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-4">
+            <ng-select [(ngModel)]="position_id" style="margin-bottom:15px;" [ngClass]="'ng-select '" [options]="position_data" [multiple]="false"></ng-select>
+          </div>
+          <div class="col-sm-2">
+            <button (click)="openMyModal('effect-12')" class="btn btn-primary"><i class="icofont icofont-plus m-r-5"></i> {{word.add_position[lang]}}</button>
+          </div>
+       </div>
+         <div class="from-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.address[lang]}} :</label>
+            <div class="col-sm-4">
+                <textarea [(ngModel)]="address" style="margin-bottom:1px;" rows="5" cols="5" class="form-control" placeholder=""></textarea>
+            </div>
+          </div> <br>
+           <div class="form-group row">
+              <label align="right" class="col-sm-2 col-form-label">{{word.phone_number[lang]}} :</label>
+              <div class="col-sm-2">
+                <input [(ngModel)]="phone_number" style="margin-bottom:15px;"  type="text" class="form-control">
+              </div>
+            </div>
+            <div class="from-group row">
+              <label align="right" class="col-sm-2 col-form-label">{{word.email[lang]}} :</label>
+              <div class="col-sm-4">
+                <input [(ngModel)]="email" style="margin-bottom:15px;" type="text" class="form-control">
+              </div>
+           </div>
+             <br>
+        <div from-group class="row">
+          <div class="col-sm-12" align="center">
+            <button *ngIf="check_update == false" (click)="add_staff()" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.save[lang]}}</button>
+            <button *ngIf="check_update == true" (click)="update_staff()" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.edit[lang]}}</button>      
+            <button routerLink="/basic-data/staff" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+          </div>
+        </div>
+      </app-card>
+  </div>    
+</div>
+
+<app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+  <h3 class="f-26">{{word.add_division[lang]}}</h3>
+  <div class="text-center">
+    <div class="form-group row">
+      <label  class="col-sm-2 col-form-label">{{word.division[lang]}} :</label>
+      <div class="col-sm-9">
+        <input [(ngModel)]="division_name" type="text" class="form-control">
+      </div>
+    </div>
+    <div class="form-group row">
+        <label align="right" class="col-sm-2 col-form-label">{{word.department[lang]}} :</label>
+        <div class="col-sm-9">
+          <ng-select [(ngModel)]="add_department_id" style="margin-bottom:15px;" class="text-left" [ngClass]="'ng-select'" [multiple]="false"  [options]="department_data"></ng-select>
+        </div>
+    </div>
+       <button  (click)="add_division($event)" type="button" class="btn btn-success waves-effect m-r-20 f-w-600 d-inline-block">{{word.save[lang]}}</button>
+       <button (click)="closeMyModal($event)" class="btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">{{word.cancel[lang]}}</button>
+  </div>
+  <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+</app-modal-animation>
+
+<app-modal-animation [modalID]="'effect-12'" [modalClass]="'md-effect-13'">
+    <h3 class="f-26">{{word.add_position[lang]}}</h3>
+    <div class="text-center">
+      <div class="input-group">
+        <label class="col-sm-2 col-form-label">{{word.position[lang]}} :</label>
+        <input [(ngModel)]="position_name" type="text" class="col-sm-9 form-control">
+      </div>
+      <button (click)="add_position($event)" type="button" class="btn btn-success waves-effect m-r-20 f-w-600 d-inline-block">{{word.save[lang]}}</button>
+      <button (click)="closeMyModal($event)" class="btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">{{word.cancel[lang]}}</button>
+    </div>
+  <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+</app-modal-animation>

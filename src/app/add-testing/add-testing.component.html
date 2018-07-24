@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-lg-12">
+      <app-card >
+        <h4  *ngIf="check_update == false" class="sub-title">{{word.add_testing[lang]}}</h4>
+        <h4  *ngIf="check_update == true" class="sub-title">{{word.edit_testing[lang]}}</h4>
+        <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.task[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-8">
+              <ng-select *ngIf="check_update == false" [(ngModel)]="task_id" (ngModelChange)="show_sub_task($event)" (ngModelChange)="show_test_episode_requirement_id($event)" style="margin-bottom:15px;" [ngClass]="'ng-select '" [options]="task_data" [multiple]="false"></ng-select>
+              <input *ngIf="check_update == true" [(ngModel)]="program_name" type="text" class="form-control" disabled>
+            </div>
+        </div>
+         <div *ngFor="let item of sub_task;let i = index" class="form-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.sub_task[lang]}} :  <span style="color:red;font-weight: bold;"> * </span></label>
+        <div class="col-sm-3">
+            <input [(ngModel)]="item.sub_task_id" type="hidden" class="form-control" disabled>
+            <input [(ngModel)]="item.sub_task_name" type="text" class="form-control" disabled>
+          </div>
+          <div  class="form-radio col-sm-5">
+            <div class="radio radio-inline">
+              <label>
+                <input [(ngModel)]="test_result[i]" name="past{{i}}"  [value] ="true"  type="radio"  >
+                <i class="helper"></i>{{word.past[lang] }} 
+              </label>
+            </div>
+            <div class="radio radio-inline">
+              <label>
+                <input [(ngModel)]="test_result[i]" name="past{{i}}" [value] ="false"  type="radio" >
+                <i class="helper"></i>{{word.fail[lang]}} 
+              </label>
+            </div>
+          </div>
+      </div> 
+        <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.episode[lang]}} :<span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-2">
+              <input  [(ngModel)]="test_no" type="number" style="margin-bottom:15px;width:50px;"  class="form-control" disabled>
+          </div>
+        </div>
+        <div class="from-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.testing_date[lang]}} :<span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-2">
+            <input  [(ngModel)]="date_test" style="margin-bottom:15px;width:160px;" class="form-control" type="date" >
+          </div>
+        </div>  
+      
+            <div class="form-group row">
+              <label align="right" class="col-sm-2 col-form-label">{{word.tester[lang]}} :<span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-3">
+                  <ng-select [options]="staff_data" [(ngModel)]="tester" style="margin-bottom:15px;" [ngClass]="'ng-select '" [options]="staff_data" [multiple]="false"></ng-select>
+              </div>
+          </div> 
+          <div class="from-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.detail[lang]}} :<span style="color:red;font-weight: bold;"> * </span></label>
+            <div class="col-sm-8">
+                <textarea  [(ngModel)]="description" style="margin-bottom:15px;" rows="5" cols="5" class="form-control" ></textarea>
+            </div>
+          </div> 
+            <div class="from-group row">
+                <label align="right" class="col-sm-2 col-form-label">{{word.document[lang]}} :</label>
+                <div class="col-sm-5">
+                  <input (change)="onFileChange($event)"  class="form-control" type="file" />
+                  <p style="color:blue;" *ngIf="check_update == true && old_file != ''">{{word.old_file[lang] +' : '+ old_file}}</p>
+                </div>
+                <div class="col-sm-2">
+                  <button *ngIf="check_update == true && old_file != ''" type="button" class="btn btn-info" (click)="download()">
+                    <i class="fa fa-download"></i> {{word.download_the_old_file[lang]}}
+                </button>
+              </div> 
+              </div>  
+             <br>
+        <div from-group class="row">
+          <div class="col-sm-12" align="center">
+              <button *ngIf="check_update == false"  (click)="add_testing($event)" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.save[lang]}}</button>  
+              <button *ngIf="check_update == true" (click)="update_testing()" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.edit[lang]}}</button> 
+              <button routerLink="/testing" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+          </div>
+        </div>
+      </app-card>
+  </div>    
+</div>

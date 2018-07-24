@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ngKnob</title>
+    <link rel="stylesheet" href="dist/ngKnob.css" />
+</head>
+<body ng-app="Example" ng-controller="MainCtrl">
+
+    <h2>Volume: {{ volume }}</h2>
+    <ng-knob width="40" min="0" max="100" ng-model="volume"></ng-knob>
+
+    <audio autoplay src="05%20Truth%20Ray.mp3"></audio>
+
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="dist/ngKnob.js"></script>
+    <script src="example.js"></script>
+</body>
+</html>

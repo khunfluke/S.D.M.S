@@ -1,0 +1,7 @@
+node_modules
+dist
+.tscache
+**/*.js
+**/*.js.map
+tscommand*
+.tmp

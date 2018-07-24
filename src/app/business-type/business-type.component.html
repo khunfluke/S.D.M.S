@@ -1,0 +1,72 @@
+<div class="page-header">
+  <div class="page-header-title">
+    <h4>{{word.business_type_list[lang]}}</h4>
+  </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <app-card>
+          <div class=row>
+            <div class="col-lg-3" align="left">
+                <input
+                  type='text'
+                  class="form-control input-sm m-l-10"
+                  placeholder='{{word.search_business_type[lang]}}'
+                  (keyup)='updateFilter($event)'
+                />
+              </div>
+          <div class="col-lg-9" align="right">
+              <button type="button" class="btn btn-primary" (click)="check_add_department('effect-13')"> <i class="icofont icofont-plus m-r-5"></i>{{word.add_business_type[lang]}}
+              </button>
+          </div>
+          </div><br>
+            <ngx-datatable
+              class='data-table scroll'
+              [rows]='set_row'
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [rowHeight]="55"
+              [scrollbarV]="true"
+              [selected]="selected"
+              [selectionType]="'single'"
+              (activate)="onActivate($event)"
+              (select)='onSelect($event)'
+              (page)="onPage($event)">
+              <ngx-datatable-column [maxWidth]=140 headerClass="head_center" cellClass="head_center" name="{{word.no[lang]}}" prop="index">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row['index']}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="{{word.business_type[lang]}}" headerClass="head_center" prop="business_type_name" >
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <p [innerHTML]="row['business_type_name']"></p>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [maxWidth]=300 headerClass="head_center" cellClass="head_center" [minWidth]=200 name="{{word.manage[lang]}}" >
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                      <button (click)="check_update_business_type($event,row['business_type_id'],row['business_type_name'],'effect-13')" style="color:aliceblue;" class="btn btn-warning" placement="bottom" popovertitle="Warning color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Warning color states" ng-reflect-placement="bottom">
+                          <i class="fa fa-edit"></i>{{word.edit[lang]}}</button>
+                      <button (click)="check_delete_business_type($event,row['business_type_id'])" style="color:aliceblue;" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">
+                          <i class="fa fa-trash"></i>{{word.delete[lang]}}</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>  
+        </app-card>
+    </div>
+  </div>
+
+  <app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+    <h3 *ngIf="check_update == false" class="f-26">{{word.add_business_type[lang]}}</h3>
+    <h3 *ngIf="check_update == true" class="f-26">{{word.edit_business_type[lang]}}</h3>
+      <div class="text-center">
+        <div class="input-group">
+          <label  class="col-sm-3 col-form-label">{{word.business_type[lang]}} :</label>
+          <input [(ngModel)]="business_type_id" type="hidden" class="form-control" >
+          <input [(ngModel)]="business_type" type="text" class="col-sm-8 form-control" >
+        </div>
+          <button *ngIf="check_update == false" (click)="add_business_type($event)" type="button" class="btn btn-success waves-effect m-r-20 f-w-600 d-inline-block">{{word.save[lang]}}</button>
+          <button *ngIf="check_update == true" (click)="update_business_type($event)" type="button" class="btn btn-success waves-effect m-r-20 f-w-600 d-inline-block">{{word.edit[lang]}}</button>
+          <button (click)="closeMyModal($event)" class="btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">{{word.cancel[lang]}}</button>
+      </div>
+    <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+  </app-modal-animation>

@@ -1,0 +1,69 @@
+<div class="page-header">
+    <div class="page-header-title">
+      <h4>{{word.consideration_list[lang]}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+        <app-card>
+            <div class="row">
+                <div class="col-lg-3" align="left">
+                  <input
+                    type='text'
+                    class="form-control input-sm m-l-10"
+                    placeholder='{{word.serch_requirement[lang]}}'
+                    (keyup)='updateFilter($event)'
+                   />
+                </div>
+            </div><br>
+            <ngx-datatable
+              class='data-table scroll'
+              [rows]='set_row'
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [rowHeight]="55"
+              [scrollbarV]="true"
+              [selected]="selected"
+              [selectionType]="'single'"
+              (activate)="onActivate($event)"
+              (select)='onSelect($event)'
+              (page)="onPage($event)">
+              <ngx-datatable-column [maxWidth]=120 headerClass="head_center" cellClass="head_center" name="{{word.no[lang]}}" prop="index">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row['index']}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column headerClass="head_center"  name="{{word.program_name[lang]}}" prop="program_name" >
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <p [innerHTML]="row['program_name']"></p>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column headerClass="head_center"  name="{{word.approval_results[lang]}}" prop="approval_results" >
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <p [innerHTML]="row['approval_results']"></p>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column headerClass="head_center"  name="{{word.approval_date[lang]}}" prop="date_of_permit">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row['date_of_permit'] | date:'dd-MM-yyyy':'+0900'}}
+                </ng-template>
+              </ngx-datatable-column>
+              <!-- <ngx-datatable-column headerClass="head_center"  name="{{word.company[lang]}}" prop="compane">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row['company_name']}}
+                </ng-template>
+              </ngx-datatable-column> -->
+              <ngx-datatable-column headerClass="head_center"  name="{{word.approvers[lang]}}" prop="first_name">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row['first_name'] +' '+row['last_name']}}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column [minWidth]=180 headerClass="head_center" cellClass="head_center" name="{{word.manage[lang]}}" >
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button (click)="edit(row['requirement_id'],row['permit_id'])" class="btn btn-warning"  style="color:aliceblue;" class="btn btn-warning" placement="bottom" popovertitle="Warning color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Warning color states" ng-reflect-placement="bottom"><i class="fa fa-edit"></i> {{word.edit[lang]}}</button>
+                  </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>  
+        </app-card>
+    </div>
+  </div>

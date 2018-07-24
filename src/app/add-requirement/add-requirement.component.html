@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col-lg-12">
+      <app-card >
+        <h4 class="sub-title">{{word.application_form[lang]}}</h4>
+        <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.program_name[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-8">
+            <input [(ngModel)]="program_name" type="text" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.requirement_no[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-2">
+            <input [(ngModel)]="requirement_no" type="text" class="form-control" disabled>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.version[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-2">
+            <input id="version" (keyup)="validate()" [(ngModel)]="version" min="1" type="number" class="form-control">
+          </div>
+          <label align="left" class="col-sm-5 col-form-label"><span style="color:red;"> {{validate_version}} </span></label>
+        </div>
+        <div class="from-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.want[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+            <div class="col-sm-8">
+              <input [(ngModel)]="want" style="margin-bottom:15px;" class="form-control" type="text" >
+            </div>
+          </div>  
+          <div class="form-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.program_support[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+            <div class="form-radio col-sm-10">
+              <div class="radio radio-inline">
+                <label>
+                  <input value="มี" [(ngModel)]="program_support" type="radio" name="radio" ><!-- checked="checked" -->
+                  <i class="helper"></i>{{word.have[lang]}}
+                </label>
+              </div>
+              <div class="radio radio-inline">
+                <label>
+                  <input value="ไม่มี" [(ngModel)]="program_support" type="radio" name="radio">
+                  <i class="helper"></i>{{word.none[lang]}}
+                </label>
+              </div>
+            </div>
+          </div>
+        <div class="from-group row">
+          <label align="right" class="col-sm-2 col-form-label">{{word.date_of_notification[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+          <div class="col-sm-3">
+            <input [(ngModel)]="date_of_notification" style="margin-bottom:15px;width:160px;" class="form-control" type="date" >
+          </div>
+        </div>   
+          <div class="from-group row">
+              <label align="right" class="col-sm-2 col-form-label">{{word.detail[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-8">
+                  <textarea [(ngModel)]="detail" style="margin-bottom:15px;" rows="5" cols="5" class="form-control" placeholder=""></textarea>
+              </div>
+            </div> 
+            <div class="from-group row">
+                <label align="right" class="col-sm-2 col-form-label">{{word.document[lang]}} :</label>
+                <div class="col-sm-5">
+                  <!-- <input (change)="onFileChange($event)" name="document" id="avatar" class="form-control" type="file" #fileInput> -->
+                  <input (change)="onFileChange()" type="file" id="document" name="document"  class="form-control" /><!-- ng2FileSelect [uploader]="uploader" -->
+                  <p style="color:blue;" *ngIf="check_update == true && old_file != ''">{{word.old_file[lang] +' : '+ old_file}}</p>
+                </div>
+                <div class="col-sm-2">
+                    <button *ngIf="check_update == true && old_file != ''" type="button" class="btn btn-info" (click)="download()">
+                      <i class="fa fa-download"></i> {{word.download_the_old_file[lang]}}
+                  </button>
+                </div>
+              </div>  
+            
+
+        <h4 class="sub-title">{{word.customer_data[lang]}}</h4>
+        <div class="from-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.company[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+            <div class="col-sm-4">
+                <ng-select [(ngModel)]="company_id" (ngModelChange)="set_customer_data($event)"  style="margin-bottom:15px;" [ngClass]="'ng-select '" [options]="company_data" [multiple]="false"></ng-select>
+            </div>
+            <!-- <div class="col-sm-2">
+                <button (click)="modalDefault.show()" class="btn btn-primary"><i class="icofont icofont-plus m-r-5"></i> {{word.add_companycustomer[lang]}}</button>
+            </div> -->
+          </div> 
+        <div class="from-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.customer_name[lang]}} :</label>
+            <div class="col-sm-4">
+              <input [(ngModel)]="customer_name" style="margin-bottom:15px;" type="text" class="form-control" disabled>
+            </div>
+         </div>
+         <div class="form-group row">
+            <label align="right" class="col-sm-2 col-form-label">{{word.phone_number[lang]}} :</label>
+            <div class="col-sm-2">
+              <input [(ngModel)]="customer_phone_number" style="margin-bottom:15px;"  type="text" class="form-control" disabled>
+            </div>
+          </div>
+
+          <h4 class="sub-title">{{word.responsible_person_data[lang]}}</h4>
+          <div class="form-group row">
+              <label align="right" class="col-sm-2 col-form-label">{{word.employee_name[lang]}} : <span style="color:red;font-weight: bold;"> * </span></label>
+              <div class="col-sm-4">
+                <ng-select [(ngModel)]="employee_id" (ngModelChange)="set_employee_data($event)" [ngClass]="'ng-select '" [options]="employee_data" ></ng-select>
+              </div>
+              <!-- <div class="col-sm-2">
+                  <button class="btn btn-primary"><i class="icofont icofont-plus m-r-5"></i> {{word.add_employeedata[lang]}}</button>
+              </div> -->
+            </div>
+            <div class="from-group row">
+                <label align="right" class="col-sm-2 col-form-label">{{word.employee_code[lang]}} :</label>
+                <div class="col-sm-2">
+                  <input [(ngModel)]="employee_code" style="margin-bottom:15px;" type="text" class="form-control" disabled>
+                </div>
+             </div>
+             <div class="from-group row">
+                <label align="right" class="col-sm-2 col-form-label">{{word.division[lang]}} :</label>
+                <div class="col-sm-3">
+                  <input [(ngModel)]="division" style="margin-bottom:15px;" type="text" class="form-control" disabled>
+                </div>
+             </div>
+             <div class="from-group row">
+                <label align="right" class="col-sm-2 col-form-label">{{word.department[lang]}} :</label>
+                <div class="col-sm-3">
+                  <input [(ngModel)]="department" style="margin-bottom:15px;" type="text" class="form-control" disabled>
+                </div>
+             </div>
+             <br>
+        <div from-group class="row">
+          <div class="col-sm-12" align="center">
+             <button *ngIf="check_update == false" (click)="add_requirement()" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.save[lang]}}</button>
+            <button *ngIf="check_update == true" (click)="update_requirement()" class="btn btn-success" placement="bottom" popovertitle="Success color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Success color states" ng-reflect-placement="bottom">{{word.edit[lang]}}</button>
+            <button routerLink="/requirement" class="btn btn-danger" placement="bottom" popovertitle="Danger color states" type="button" ng-reflect-ngb-popover="[object Object]" ng-reflect-popover-title="Danger color states" ng-reflect-placement="bottom">{{word.cancel[lang]}}</button>
+          </div>
+        </div>
+      </app-card>
+  </div>    
+</div>
+
+<!-- <app-modal-basic #modalDefault [hideHeader]="true" [hideFooter]="true" [dialogClass]="'modal-lg'">
+    <div class="app-modal-body">
+      <app-add-company></app-add-company>
+    </div>
+</app-modal-basic> -->
+
